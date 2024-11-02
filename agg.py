@@ -50,14 +50,23 @@ class AgglomerativeHierarchicalClustering:
                     min_dist, closest_clusters = dist, (cluster_i, cluster_j)
         return closest_clusters
 
-    def merge_and_form_new_clusters(self, ci_id, cj_id):
-        new_clusters = {0: self.clusters[ci_id] + self.clusters[cj_id]}
+    # def merge_and_form_new_clusters(self, ci_id, cj_id):
+    #     new_clusters = {0: self.clusters[ci_id] + self.clusters[cj_id]}
 
+    #     for cluster_id in self.clusters.keys():
+    #         if (cluster_id == ci_id) | (cluster_id == cj_id):
+    #             continue
+    #         new_clusters[len(new_clusters.keys())] = self.clusters[cluster_id]
+    #     return new_clusters
+    
+    def merge_and_form_new_clusters(self, ci_id, cj_id):
+        new_cluster_id = max(self.clusters.keys()) + 1  # Assign a new ID
+        new_clusters = {new_cluster_id: self.clusters[ci_id] + self.clusters[cj_id]}
         for cluster_id in self.clusters.keys():
-            if (cluster_id == ci_id) | (cluster_id == cj_id):
-                continue
-            new_clusters[len(new_clusters.keys())] = self.clusters[cluster_id]
+            if cluster_id != ci_id and cluster_id != cj_id:
+                new_clusters[cluster_id] = self.clusters[cluster_id]
         return new_clusters
+
 
     def run_algorithm(self):
         while len(self.clusters.keys()) > self.K:
