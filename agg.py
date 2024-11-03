@@ -1,7 +1,4 @@
-from sklearn.datasets import load_digits
-from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
-import time
 import math
 
 color = ["green", "blue", "black", "red", "grey", "pink", "purple", "lime", "aqua", "orange"]
@@ -53,14 +50,23 @@ class AgglomerativeHierarchicalClustering:
                     min_dist, closest_clusters = dist, (cluster_i, cluster_j)
         return closest_clusters
 
-    def merge_and_form_new_clusters(self, ci_id, cj_id):
-        new_clusters = {0: self.clusters[ci_id] + self.clusters[cj_id]}
+    # def merge_and_form_new_clusters(self, ci_id, cj_id):
+    #     new_clusters = {0: self.clusters[ci_id] + self.clusters[cj_id]}
 
+    #     for cluster_id in self.clusters.keys():
+    #         if (cluster_id == ci_id) | (cluster_id == cj_id):
+    #             continue
+    #         new_clusters[len(new_clusters.keys())] = self.clusters[cluster_id]
+    #     return new_clusters
+    
+    def merge_and_form_new_clusters(self, ci_id, cj_id):
+        new_cluster_id = max(self.clusters.keys()) + 1  # Assign a new ID
+        new_clusters = {new_cluster_id: self.clusters[ci_id] + self.clusters[cj_id]}
         for cluster_id in self.clusters.keys():
-            if (cluster_id == ci_id) | (cluster_id == cj_id):
-                continue
-            new_clusters[len(new_clusters.keys())] = self.clusters[cluster_id]
+            if cluster_id != ci_id and cluster_id != cj_id:
+                new_clusters[cluster_id] = self.clusters[cluster_id]
         return new_clusters
+
 
     def run_algorithm(self):
         while len(self.clusters.keys()) > self.K:
@@ -68,29 +74,4 @@ class AgglomerativeHierarchicalClustering:
             self.clusters = self.merge_and_form_new_clusters(*closest_clusters)
 
     def print(self, targetin):
-        for id, points in self.clusters.items():
-            clustcolor = color[id]
-            for point in points:
-                plt.scatter(point[0], point[1],10,clustcolor,marker=markertypes[targetin[id]])
-        plt.show()
-
-digits = load_digits()
-datas = digits.data
-target = digits.target
-
-pointcount = input("Amount of points to calculate type all for all points \n")
-
-if pointcount == "all":
-    pointcount = 1797
-
-
-pca = PCA(n_components=2)
-data_2d = pca.fit_transform(datas)
-dataformat = data_2d.tolist()
-dataformat = dataformat[:int(pointcount)]
-print("Data converted to 2d. Time: "+str(time.process_time()))
-
-agg_hierarchical_clustering = AgglomerativeHierarchicalClustering(dataformat, 10, average_link)
-agg_hierarchical_clustering.run_algorithm()
-print("Agglomerative Hierarchical Clustering complited for "+str(pointcount)+" points. Time: "+str(time.process_time()))
-agg_hierarchical_clustering.print(target)
+        return self.clusters.items()
