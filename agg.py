@@ -1,6 +1,7 @@
 import math
 from measurements import get_distance_measure
 
+
 class AgglomerativeHierarchicalClustering:
     def __init__(self, data, K, M):
         self.data = data
@@ -12,6 +13,21 @@ class AgglomerativeHierarchicalClustering:
     def init_clusters(self):
         return {data_id: [data_point] for data_id, data_point in enumerate(self.data)}
 
+    # def find_closest_clusters(self):
+    #     min_dist = math.inf
+    #     closest_clusters = None
+
+    #     clusters_ids = list(self.clusters.keys())
+
+    #     for i, cluster_i in enumerate(clusters_ids[:-1]):
+    #         for j, cluster_j in enumerate(clusters_ids[i+1:]):
+    #             dist = self.measure(self.clusters[cluster_i], self.clusters[cluster_j])
+    #             if dist < min_dist and dist < 0.5:
+    #                 min_dist, closest_clusters = dist, (cluster_i, cluster_j)
+    #     return closest_clusters
+
+    
+    
     def find_closest_clusters(self):
         min_dist = math.inf
         closest_clusters = None
