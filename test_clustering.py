@@ -82,21 +82,21 @@ class TestDistanceMeasures(unittest.TestCase):
         cj = [[5.0, 6.0], [8.0, 8.0]]
 
         # Closest distance between ci and cj
-        self.assertAlmostEqual(single_link(ci, cj), 5.0)
+        self.assertAlmostEqual(single_link(ci, cj), 4.242640687119285)
 
     def test_complete_link(self):
         ci = [[1.0, 2.0], [2.0, 3.0]]
         cj = [[5.0, 6.0], [8.0, 8.0]]
 
         # Furthest distance between ci and cj
-        self.assertAlmostEqual(complete_link(ci, cj), 8.602325267042627)
+        self.assertAlmostEqual(complete_link(ci, cj), 9.219544457292887)
 
     def test_average_link(self):
         ci = [[1.0, 2.0], [2.0, 3.0]]
         cj = [[5.0, 6.0], [8.0, 8.0]]
 
         # Average distance between all points in ci and cj
-        self.assertAlmostEqual(average_link(ci, cj), 6.801162633521313)
+        self.assertAlmostEqual(average_link(ci, cj), 6.732322267452801)
 
     def test_get_distance_measure(self):
         # Test that the correct distance measure is returned
