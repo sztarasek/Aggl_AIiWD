@@ -44,8 +44,10 @@ accuracy_agg_average = adjusted_rand_score(target, labels_custom_a)
 # Plot
 
 plt.title(f'Our Agglomerative Clustering Average Link Time: {str(time2-time1)}, ARI: {accuracy_agg_average:.2f}')
+id_color = 0
 for id, points in clust_a:
-    clustcolor = color[id % len(color)]
+    clustcolor = color[id_color]
+    id_color += 1
     for point in points:
         plt.scatter(point[0], point[1], color=clustcolor, marker='o', edgecolor='k')
 
@@ -106,8 +108,10 @@ accuracy_agg_single = adjusted_rand_score(target, labels_custom_s)
 # Plot
 
 plt.title(f'Our Agglomerative Clustering Single Link Time: {str(time6-time5)}, ARI: {accuracy_agg_single:.2f}')
+id_color = 0
 for id, points in clust_s:
-    clustcolor = color[id % len(color)]
+    clustcolor = color[id_color]
+    id_color += 1
     for point in points:
         plt.scatter(point[0], point[1], color=clustcolor, marker='o', edgecolor='k')
 
@@ -168,8 +172,10 @@ accuracy_agg_complete = adjusted_rand_score(target, labels_custom_c)
 # Plot
 
 plt.title(f'Our Agglomerative Clustering Complete Link Time: {str(time10-time9)}, ARI: {accuracy_agg_complete:.2f}')
+id_color = 0
 for id, points in clust_c:
-    clustcolor = color[id % len(color)]
+    clustcolor = color[id_color]
+    id_color += 1
     for point in points:
         plt.scatter(point[0], point[1], color=clustcolor, marker='o', edgecolor='k')
 
