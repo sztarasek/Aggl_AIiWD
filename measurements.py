@@ -3,6 +3,10 @@ import math
 def distance(p, q):
     return math.sqrt(sum([(pi - qi)**2 for pi, qi in zip(p, q)]))
 
+#wychodzi gorzej więc w komentarzu
+#def manhattan_distance(p, q):
+#    return sum(abs(pi - qi) for pi, qi in zip(p, q))
+
 def single_link(ci, cj):
     return min([distance(vi, vj) for vi in ci for vj in cj])
 
