@@ -1,30 +1,6 @@
-import matplotlib.pyplot as plt
 import math
+from measurements import get_distance_measure
 
-color = ["green", "blue", "black", "red", "grey", "pink", "purple", "lime", "aqua", "orange"]
-
-markertypes = ["o","v","^","<",">","s","8","*","P","D"]
-
-def distance(p, q):
-    return math.sqrt(sum([(pi - qi)**2 for pi, qi in zip(p, q)]))
-
-def single_link(ci, cj):
-    return min([distance(vi, vj) for vi in ci for vj in cj])
-
-def complete_link(ci, cj):
-    return max([distance(vi, vj) for vi in ci for vj in cj])
-
-def average_link(ci, cj):
-    distances = [distance(vi, vj) for vi in ci for vj in cj]
-    return sum(distances) / len(distances)
-
-def get_distance_measure(M):
-    if M == 0:
-        return single_link
-    elif M == 1:
-        return complete_link
-    else:
-        return average_link
 
 class AgglomerativeHierarchicalClustering:
     def __init__(self, data, K, M):
@@ -37,6 +13,21 @@ class AgglomerativeHierarchicalClustering:
     def init_clusters(self):
         return {data_id: [data_point] for data_id, data_point in enumerate(self.data)}
 
+    # def find_closest_clusters(self):
+    #     min_dist = math.inf
+    #     closest_clusters = None
+
+    #     clusters_ids = list(self.clusters.keys())
+
+    #     for i, cluster_i in enumerate(clusters_ids[:-1]):
+    #         for j, cluster_j in enumerate(clusters_ids[i+1:]):
+    #             dist = self.measure(self.clusters[cluster_i], self.clusters[cluster_j])
+    #             if dist < min_dist and dist < 0.5:
+    #                 min_dist, closest_clusters = dist, (cluster_i, cluster_j)
+    #     return closest_clusters
+
+    
+    
     def find_closest_clusters(self):
         min_dist = math.inf
         closest_clusters = None
